@@ -1,7 +1,7 @@
 import {PIDController} from "./controller.js";
 
 let desiredConcentration = 0.5;
-let actualConcentration = 0;
+let actualConcentration = 100;
 
 // Parámetros PID
 let Kp = 1.0;
@@ -21,7 +21,7 @@ while (true) {
 
     // Simular la inyección del coagulante en el tanque
     actualConcentration += dosification * dt; // Simplificación de la dinámica del tanque
-    console.log(`Concentracion actual: ${actualConcentration}`)
+    console.log(`Nueva concentracion actual: ${actualConcentration}`)
     console.log("====================");
 
     console.log("\n");
