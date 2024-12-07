@@ -1,42 +1,46 @@
 import {PIDController} from "./controller.js";
 
 // Inicializar variables y parámetros
-let concentracionDeseada = 0.5; // Concentración deseada de coagulante
-let concentracionActual = 0; // Estado inicial del tanque
-let cantidadCoagulanteFija = 10; // Cantidad fija de coagulante
-let cantidadAgua = 100; // Estado inicial de agua en el tanque
+let concentracionDeseada = 50;
+let cantidadCoagulante = 50;
+let cantidadAgua = 100;
+let precisionDecimales = 0.001
+let concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
 
 // Parámetros PID para el agua
-let Kp = 0.2;
-let Ki = 0.02;
-let Kd = 0.0005;
+let Kp = 0.2, Ki = 0.02, Kd = 0.0005;
 
-let pidAgua = new PIDController(Kp,Kd,Ki);
+let pidAgua = new PIDController(Kp, Kd, Ki);
 
 // Simulación del sistema
-while(true)
-{
-    console.log("\n");
-    console.log("================");
+while (true) {
+    if (Math.abs(concentracionActual - concentracionDeseada) <= precisionDecimales) break;
 
-    console.log(`Antes del ajuste -> Cantidad de agua: ${cantidadAgua}; Concentracion coagulante actual: ${concentracionActual}`);
-    // Control de cantidad de agua
-    let ajusteAgua = pidAgua.calculate(concentracionDeseada, concentracionActual);
+    console.log("\n================");
+    console.log(`Antes del ajuste -> \n\t Cantidad de agua: ${cantidadAgua}; \n\t Concentracion coagulante actual: ${concentracionActual} \n`);
 
-    // Simular el ajuste en el sistema
-    let incrementoAgua = Math.max(-cantidadAgua, Math.min(ajusteAgua, 10)); // Asegúrate de no permitir decrementos por debajo de cero
+    // Calculo del ajuste de agua
+    let ajusteAgua = truncarATresDecimales(pidAgua.calculate(concentracionDeseada, concentracionActual));
+    console.log(`Ajuste del agua calculado: ${ajusteAgua}\n`);
+    cantidadAgua -= ajusteAgua;
 
-    // Actualizar el sistema
-    cantidadAgua += incrementoAgua;
-    concentracionActual = (cantidadCoagulanteFija * 100) / (cantidadAgua + cantidadCoagulanteFija);
+    // Calculo de la concentracion de coagulante
+    concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
 
-    // Mostrar resultados
-    console.log(`Luego del ajuste -> Cantidad de agua final: ${cantidadAgua}; Concentración coagulante nueva: ${concentracionActual}`);
-    console.log("================");
+    console.log(`Luego del ajuste -> \n\t Nueva concentracion de coagulante: ${concentracionActual}; \n\t Nueva cantidad de agua: ${cantidadAgua} \n`);
+    console.log("================\n");
 
-    await delay(3000);
+    await delay(1000);
 }
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function truncarATresDecimales(num) {
+    return Math.trunc(num * 1000) / 1000;
+}
+
+function calcularConcentracion(cantCoagulante, cantAgua) {
+    return truncarATresDecimales((cantidadCoagulante * 100) / (cantidadAgua + cantidadCoagulante));
 }
