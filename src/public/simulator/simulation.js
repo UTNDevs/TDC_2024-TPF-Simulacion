@@ -27,7 +27,7 @@ async function initSimulation() {
     let concentracionDeseada = parseInt(document.getElementById('valorPotConcentracion')?.textContent || '50', 10);
     let cantidadAgua = parseInt(document.getElementById('valorPotAgua')?.textContent || '50', 10) * 10 ;
     let cantidadCoagulante = 50;
-    let precisionDecimales = 0.001
+    let precisionDecimales = 0.1
     let concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
 
     // Parámetros PID para el agua
@@ -35,7 +35,11 @@ async function initSimulation() {
     let pidAgua = new PIDController(Kp, Kd, Ki);
 
     while (true) {
-        if (Math.abs(concentracionActual - concentracionDeseada) <= precisionDecimales) break;
+        if (Math.abs(concentracionActual - concentracionDeseada) <= precisionDecimales){
+            graphicData.push({concentration: concentracionActual, water: cantidadAgua});
+            document.getElementById('mensajeProcesoFinalizado').style.display = 'inline-block';
+            break;
+        }
 
         console.log("\n================");
         //console.log(`Antes del ajuste -> \n\t Cantidad de agua: ${cantidadAgua}; \n\t Concentracion coagulante actual: ${concentracionActual} \n`);
@@ -53,7 +57,7 @@ async function initSimulation() {
         console.log("================\n");
 
         graphicData.push({concentration: concentracionActual, water: cantidadAgua});
-        redibujarGrafico();
+        reDrawCAndQGraphic();
 
         await delay(1500);
     }

@@ -10,23 +10,34 @@
     <h1>Sistema de control de potabilizacion de agua.</h1>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3" style="background-color: lightgray;">
-                <!-- Parametros de entrada -->
-                <h3>Parametros de entrada</h3>
+            <div class="col-3" style="background-color: white;">
 
-                <div id="potenciometroAgua"></div>
-                <p>Volumen de agua (x10): <span id="valorPotAgua">50</span> Litros</p>
-
-                <div id="potConcentracion"></div>
-                <p>Concentracion deseada: <span id="valorPotConcentracion">50</span>% gramo/Litro</p>
-
+                <!-- Condiciones inciales del sistema -->
+                <h3>Condiciones iniciales del sistema</h3>
                 <div style="border: 2px solid brown;">
-                    <p>Cantidad de coagulante total: <span id="cantCoagulante">50</span> gramos</p>
+                    <p>Cantidad de coagulante (miligramos):
+                        <span id="cantCoagulante">50</span> mili-gramos
+                    </p>
+
+                    <p> Cantidad de agua en tanque (Litros):
+                        <span id="valorPotAgua">1000</span> Litros
+                    </p>
                 </div>
+
+                <!-- Parametro de entrada -->
+                <h3>Parametro de entrada</h3>
+                <div id="potConcentracion"></div>
+                <p>Concentracion deseada: <span id="valorPotConcentracion">50</span>gramo/Litro</p>
+
+                <!-- Status del proceso -->
+                <div id="mensajeProcesoFinalizado" style="display: none; color: green; font-weight: bold;">
+                    Proceso finalizado
+                </div>
+
             </div>
             <div class="col-9 container-fluid" style="background-color: lightblue;">
                 <!-- Right column content -->
-                <div class="row">
+                <div class="row justify-content-end">
                     <div class="control-buttons">
                         <button id="playButton" class="btn btn-success">
                             <i class="fas fa-play"></i> Play
@@ -45,9 +56,9 @@
         </div>
     </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="scripts/potenciometroAgua.js"></script>
-    <script src="scripts/potenciometroConcentracion.js"></script>
-    <script src="scripts/graficoCantidadyConcentracion.js"></script>
+    <script src="scripts/waterPot.js"></script>
+    <script src="scripts/concentrationPot.js"></script>
+    <script src="scripts/concentrationAndQuantityGraph.js"></script>
     <script src="simulator/simulation.js"></script>
 </body>
 </html>

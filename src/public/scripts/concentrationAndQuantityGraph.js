@@ -1,38 +1,38 @@
 let graphicData = [];
 
-const margin = {top: 20, right: 30, bottom: 40, left: 50};
-const width = 1000 - margin.left - margin.right;
-const height = 600 - margin.top - margin.bottom;
+const cAndQMargin = {top: 20, right: 30, bottom: 40, left: 50};
+const cAndQWidth = 1000 - cAndQMargin.left - cAndQMargin.right;
+const cAndQheight= 600 - cAndQMargin.top - cAndQMargin.bottom;
 
-const graphicSvg = d3.select('#graficoCantidadVsConcentracion')
+const cAndQGraphicSvg = d3.select('#graficoCantidadVsConcentracion')
     .append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
+    .attr('width',cAndQWidth+ cAndQMargin.left + cAndQMargin.right)
+    .attr('height', cAndQheight + cAndQMargin.top + cAndQMargin.bottom)
     .append('g')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
+    .attr('transform', `translate(${cAndQMargin.left},${cAndQMargin.top})`);
 
 const x = d3.scaleLinear()
     .domain([0, 1000]) // Cantidad de agua de 0 a 100 litros
-    .range([0, width]);
+    .range([0, cAndQWidth]);
 
 const y = d3.scaleLinear()
     .domain([0, 100]) // Concentración de 0 a 100%
-    .range([height, 0]);
+    .range([cAndQheight, 0]);
 
 const xAxis = d3.axisBottom(x);
 const yAxis = d3.axisLeft(y);
 
-graphicSvg.append('g')
-    .attr('transform', `translate(0,${height})`)
+cAndQGraphicSvg.append('g')
+    .attr('transform', `translate(0,${cAndQheight})`)
     .call(xAxis)
     .append('text')
-    .attr('x', width)
+    .attr('x', cAndQWidth)
     .attr('y', -10)
     .attr('fill', '#000')
     .style('text-anchor', 'end')
     .text('Cantidad de agua (Litros)');
 
-graphicSvg.append('g')
+cAndQGraphicSvg.append('g')
     .call(yAxis)
     .append('text')
     .attr('transform', 'rotate(-90)')
@@ -42,18 +42,18 @@ graphicSvg.append('g')
     .style('text-anchor', 'end')
     .text('Concentración (%)');
 
-const line = d3.line()
+const cAndQLine = d3.line()
     .x(d => x(d.water))
     .y(d => y(d.concentration));
 
-graphicSvg.append('path')
+cAndQGraphicSvg.append('path')
     .datum(graphicData)
     .attr('fill', 'none')
     .attr('stroke', 'blue')
     .attr('stroke-width', 2)
-    .attr('d', line);
+    .attr('d', cAndQLine);
 
-graphicSvg.selectAll('circle')
+cAndQGraphicSvg.selectAll('circle')
     .data(graphicData)
     .enter()
     .append('circle')
@@ -62,18 +62,19 @@ graphicSvg.selectAll('circle')
     .attr('r', 5)
     .attr('fill', 'red');
 
-function redibujarGrafico() {
-    const line = d3.line()
+function reDrawCAndQGraphic() {
+
+    const cAndQLine = d3.line()
         .x(d => x(d.water))
         .y(d => y(d.concentration));
 
     // Selecciona y actualiza la línea
-    graphicSvg.selectAll('path')
+    cAndQGraphicSvg.selectAll('path')
         .datum(graphicData)
-        .attr('d', line);
+        .attr('d', cAndQLine);
 
     // Selecciona y actualiza los círculos
-    const circles = graphicSvg.selectAll('circle')
+    const circles = cAndQGraphicSvg.selectAll('circle')
         .data(graphicData);
 
     circles.enter()
