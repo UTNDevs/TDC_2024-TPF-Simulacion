@@ -15,14 +15,19 @@
                 <!-- Condiciones inciales del sistema -->
                 <h3>Condiciones iniciales del sistema</h3>
                 <div style="border: 2px solid brown;">
-                    <p>Cantidad de coagulante (miligramos):
-                        <span id="cantCoagulante">500</span> mili-gramos
-                    </p>
+                    <div>
+                        <label for="cantCoagulante">Cantidad de coagulante (miligramos):</label>
+                        <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="300" readonly>
+                    </div>
 
-                    <p> Cantidad de agua en tanque (Litros):
-                        <span id="valorPotAgua">1000</span> Litros
-                    </p>
+                    <div>
+                        <label for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
+                        <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="1000" readonly>
+                    </div>
                 </div>
+
+                <!-- Espaciador -->
+                <div class="row" style="height: 5%;"></div>
 
                 <!-- Parametro de entrada -->
                 <h3>Parametro de entrada</h3>
@@ -53,6 +58,8 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- Grafico de cantidad de agua vs concentracion -->
                 <div class="row">
                     <h3>Gráfico de cantidad de agua vs concentración</h3>
                     <div id="graficoCantidadVsConcentracion" style="width: 100%; height: 100%;"></div>
@@ -61,7 +68,16 @@
                         <input type="number" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
                     </div>
                 </div>
-                <div class="row">Mas contenido proximamente</div>
+
+                <!-- Espaciador -->
+                <div class="row" style="height: 10%;"></div>
+
+                <!-- Grafico de la perturbacion a lo largo del tiempo -->
+                <div class="row">
+                    <h3>Gráfico de la perturbacion a lo largo del tiempo (dominio s)</h3>
+                    <div id="graficoPerturbacionVsTiempo" style="width: 100%; height: 100%;"></div>
+                </div>
+
             </div>
         </div>
     </div>

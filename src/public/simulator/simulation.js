@@ -27,8 +27,8 @@ async function initSimulation() {
 
     // Inicializar variables y parámetros
     let concentracionDeseada = parseInt(document.getElementById('valorPotConcentracion')?.textContent || '50', 10);
-    let cantidadAgua = 1000 ;
-    let cantidadCoagulante = 500;
+    let cantidadAgua = parseInt(document.getElementById("cantInicialAgua").value);
+    let cantidadCoagulante = parseInt(document.getElementById("cantCoagulante").value);
     let precisionDecimales = 0.1
     let concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
 
