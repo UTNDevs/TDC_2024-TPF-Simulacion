@@ -16,7 +16,7 @@
                 <h3>Condiciones iniciales del sistema</h3>
                 <div style="border: 2px solid brown;">
                     <p>Cantidad de coagulante (miligramos):
-                        <span id="cantCoagulante">50</span> mili-gramos
+                        <span id="cantCoagulante">500</span> mili-gramos
                     </p>
 
                     <p> Cantidad de agua en tanque (Litros):
@@ -34,6 +34,12 @@
                     Proceso finalizado
                 </div>
 
+                <!-- Simulacion de la perturbacion -->
+                <div id="dashboardPerturbacion">
+
+                </div>
+
+
             </div>
             <div class="col-9 container-fluid" style="background-color: lightblue;">
                 <!-- Right column content -->
@@ -50,13 +56,16 @@
                 <div class="row">
                     <h3>Gráfico de cantidad de agua vs concentración</h3>
                     <div id="graficoCantidadVsConcentracion" style="width: 100%; height: 100%;"></div>
+                    <div>
+                        <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
+                        <input type="number" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
+                    </div>
                 </div>
                 <div class="row">Mas contenido proximamente</div>
             </div>
         </div>
     </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="scripts/waterPot.js"></script>
     <script src="scripts/concentrationPot.js"></script>
     <script src="scripts/concentrationAndQuantityGraph.js"></script>
     <script src="simulator/simulation.js"></script>

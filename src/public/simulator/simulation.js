@@ -23,10 +23,12 @@ class PIDController {
 
 // Simulación del sistema
 async function initSimulation() {
+    cleanScreen();
+
     // Inicializar variables y parámetros
     let concentracionDeseada = parseInt(document.getElementById('valorPotConcentracion')?.textContent || '50', 10);
-    let cantidadAgua = parseInt(document.getElementById('valorPotAgua')?.textContent || '50', 10) * 10 ;
-    let cantidadCoagulante = 50;
+    let cantidadAgua = 1000 ;
+    let cantidadCoagulante = 500;
     let precisionDecimales = 0.1
     let concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
 
@@ -38,6 +40,7 @@ async function initSimulation() {
         if (Math.abs(concentracionActual - concentracionDeseada) <= precisionDecimales){
             graphicData.push({concentration: concentracionActual, water: cantidadAgua});
             document.getElementById('mensajeProcesoFinalizado').style.display = 'inline-block';
+            document.getElementById("inputCantidadFinalAgua").setAttribute("value", cantidadAgua.toFixed(3));
             break;
         }
 
@@ -75,6 +78,10 @@ function calcularConcentracion(cantCoagulante, cantAgua) {
     return truncarATresDecimales((cantCoagulante * 100) / (cantAgua + cantCoagulante));
 }
 
+function cleanScreen(){
+    document.getElementById("inputCantidadFinalAgua").setAttribute("value", 0);
+    document.getElementById('mensajeProcesoFinalizado').style.display = 'none';
+}
 
 // Add this script to handle play and pause functionality
 document.getElementById('playButton').addEventListener('click', () => {
