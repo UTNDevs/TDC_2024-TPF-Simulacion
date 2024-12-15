@@ -27,6 +27,7 @@ async function initSimulation() {
 
     // Inicializar variables y parámetros
     let concentracionDeseada = parseInt(document.getElementById('valorPotConcentracion')?.textContent || '50', 10);
+    let perturbacion = parseInt(document.getElementById('valorPotPerturbacion')?.textContent || '2000', 10);
     let cantidadAgua = parseInt(document.getElementById("cantInicialAgua").value);
     let cantidadCoagulante = parseInt(document.getElementById("cantCoagulante").value);
     let precisionDecimales = 0.1
@@ -45,6 +46,8 @@ async function initSimulation() {
         }
 
         console.log("\n================");
+        console.log(`Concentracion deseada: ${concentracionDeseada};`);
+        console.log(`Perturbacion: ${perturbacion};`);
         //console.log(`Antes del ajuste -> \n\t Cantidad de agua: ${cantidadAgua}; \n\t Concentracion coagulante actual: ${concentracionActual} \n`);
 
         // Calculo del ajuste de agua
