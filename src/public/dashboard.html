@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablero de control</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Sistema de control de potabilizacion de agua.</h1>
     <div class="container-fluid">
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="column" style="height: auto; max-width: 100%; vertical-align: middle;">
+                    <a href="http://localhost:3000"><img src="./resources/logo-utn.jpg" alt="Logo UTN"
+                            style="width: 400px; height: 150px;" /></a>
+                </div>
+                <div class="column text-center" style="height: auto; vertical-align: middle;">
+                    <h1>Trabajo Practico Integrador - TPI</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-inline-start: 2px;">
+            <h2>Sistema de control de potabilización de agua.</h2>
+        </div>
         <div class="row">
             <div class="col-3" style="background-color: white;">
 
                 <!-- Condiciones inciales del sistema -->
-                <h3>Condiciones iniciales del sistema</h3>
-                <div style="border: 2px solid brown;">
-                    <div>
-                        <label for="cantCoagulante">Cantidad de coagulante (miligramos):</label>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Condiciones iniciales del sistema</h5>
+                        <label class="card-text" for="cantCoagulante">Cantidad de coagulante (miligramos):</label>
                         <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="300" readonly>
-                    </div>
-
-                    <div>
-                        <label for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
+                        <label class="card-text" for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
                         <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="1000" readonly>
                     </div>
                 </div>
@@ -30,9 +42,14 @@
                 <div class="row" style="height: 5%;"></div>
 
                 <!-- Parametro de entrada -->
-                <h3>Parametro de entrada</h3>
+                <h3>Parámetro de entrada</h3>
                 <div id="potConcentracion"></div>
-                <p>Concentracion deseada: <span id="valorPotConcentracion">50</span>gramo/Litro</p>
+                <p>Concentración deseada: <span id="valorPotConcentracion">50</span> gramo/Litro</p>
+
+                <!-- Parametro de entrada -->
+                <h3>Parámetro de perturbación</h3>
+                <div id="potPerturbacion"></div>
+                <p>Pertubación: <span id="valorPotPerturbacion">1000</span> gramo/Litro</p>
 
                 <!-- Status del proceso -->
                 <div id="mensajeProcesoFinalizado" style="display: none; color: green; font-weight: bold;">
@@ -41,41 +58,44 @@
 
                 <!-- Simulacion de la perturbacion -->
                 <div id="dashboardPerturbacion">
-
                 </div>
-
-
             </div>
             <div class="col-9 container-fluid" style="background-color: lightblue;">
-                <!-- Right column content -->
-                <div class="row justify-content-end">
-                    <div class="control-buttons">
-                        <button id="playButton" class="btn btn-success">
-                            <i class="fas fa-play"></i> Play
-                        </button>
-                        <button id="stopButton" class="btn btn-danger">
-                            <i class="fas fa-stop"></i> Stop
-                        </button>
-                    </div>
-                </div>
-
                 <!-- Grafico de cantidad de agua vs concentracion -->
                 <div class="row">
-                    <h3>Gráfico de cantidad de agua vs concentración</h3>
-                    <div id="graficoCantidadVsConcentracion" style="width: 100%; height: 100%;"></div>
-                    <div>
-                        <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
-                        <input type="number" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
+                    <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
+                        <!-- Right column content -->
+                        <div class="row justify-content-between" style="margin-inline-start: 2px;">
+                            <div class="column">
+                                <h3>Gráfico de cantidad de agua vs concentración</h3>
+                            </div>
+                            <div class="column">
+                                <div class="control-buttons">
+                                    <button id="playButton" class="btn btn-success">
+                                        <i class="fas fa-play"></i> Play
+                                    </button>
+                                    <button id="stopButton" class="btn btn-danger">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="graficoCantidadVsConcentracion" class="row" style="margin-inline-start: 2px;"></div>
+                        <div class="row" style="margin-inline-start: 2px;">
+                            <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
+                            <input type="number" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Espaciador -->
-                <div class="row" style="height: 10%;"></div>
 
                 <!-- Grafico de la perturbacion a lo largo del tiempo -->
                 <div class="row">
-                    <h3>Gráfico de la perturbacion a lo largo del tiempo (dominio s)</h3>
-                    <div id="graficoPerturbacionVsTiempo" style="width: 100%; height: 100%;"></div>
+                    <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
+                        <div class="row" style="margin-inline-start: 2px;">
+                            <h3>Gráfico de la perturbación a lo largo del tiempo (dominio s)</h3>
+                            <div id="graficoPerturbacionVsTiempo" style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -86,4 +106,5 @@
     <script src="scripts/concentrationAndQuantityGraph.js"></script>
     <script src="simulator/simulation.js"></script>
 </body>
+
 </html>
