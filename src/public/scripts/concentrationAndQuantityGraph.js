@@ -62,11 +62,20 @@ cAndQGraphicSvg.selectAll('circle')
     .attr('r', 5)
     .attr('fill', 'red');
 
-function reDrawCAndQGraphic() {
-
+function reDrawCAndQGraphic(desiredConcentration) {
     const cAndQLine = d3.line()
         .x(d => x(d.water))
         .y(d => y(d.concentration));
+
+    // Agrega la linea de concentracion deseada en el grafico
+    cAndQGraphicSvg.append('line')
+    .attr('x1', 0)
+    .attr('y1', y(desiredConcentration))
+    .attr('x2', cAndQWidth)
+    .attr('y2', y(desiredConcentration))
+    .attr('stroke', 'green')
+    .attr('stroke-width', 2)
+    .attr('stroke-dasharray', '5,5');
 
     // Selecciona y actualiza la línea
     cAndQGraphicSvg.selectAll('path')

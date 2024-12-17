@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablero de control</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -82,8 +83,23 @@
                         </div>
                         <div id="graficoCantidadVsConcentracion" class="row" style="margin-inline-start: 2px;"></div>
                         <div class="row" style="margin-inline-start: 2px;">
-                            <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
-                            <input type="number" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
+                            <!-- Cantidad final de agua -->
+                            <div class="resultInputs">
+                                <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
+                                <input class="resultInputs" type="text" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
+                            </div>
+
+                            <!-- Concentracion alcanzada -->
+                            <div class="resultInputs">
+                                <label for="inputConcentracionFinal">Cantidad final de coagulante:</label>
+                                <input class="resultInputs"  type="text" id="inputConcentracionFinal" name="inputConcentracionFinal" readonly>
+                            </div>
+
+                            <!-- Error -->
+                            <div class="resultInputs">
+                                <label for="inputError">Error obtenido:</label>
+                                <input class="resultInputs" type="text" id="inputError" name="inputError" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>

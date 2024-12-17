@@ -41,7 +41,9 @@ async function initSimulation() {
         if (Math.abs(concentracionActual - concentracionDeseada) <= precisionDecimales){
             graphicData.push({concentration: concentracionActual, water: cantidadAgua});
             document.getElementById('mensajeProcesoFinalizado').style.display = 'inline-block';
-            document.getElementById("inputCantidadFinalAgua").setAttribute("value", cantidadAgua.toFixed(3));
+            document.getElementById("inputCantidadFinalAgua").setAttribute("value", cantidadAgua.toString()+" L");
+            document.getElementById("inputConcentracionFinal").setAttribute("value",concentracionActual.toString()+" g/L");
+            document.getElementById("inputError").setAttribute("value", (((concentracionDeseada-concentracionActual)*100)/concentracionDeseada).toString());
             break;
         }
 
@@ -63,7 +65,7 @@ async function initSimulation() {
         console.log("================\n");
 
         graphicData.push({concentration: concentracionActual, water: cantidadAgua});
-        reDrawCAndQGraphic();
+        reDrawCAndQGraphic(concentracionDeseada);
 
         await delay(1500);
     }
@@ -82,7 +84,9 @@ function calcularConcentracion(cantCoagulante, cantAgua) {
 }
 
 function cleanScreen(){
-    document.getElementById("inputCantidadFinalAgua").setAttribute("value", 0);
+    document.getElementById("inputCantidadFinalAgua").setAttribute("value", "0 L");
+    document.getElementById("inputConcentracionFinal").setAttribute("value","0 g/L");
+    document.getElementById("inputError").setAttribute("value", "0 %");
     document.getElementById('mensajeProcesoFinalizado').style.display = 'none';
 }
 
