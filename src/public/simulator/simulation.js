@@ -21,51 +21,66 @@ class PIDController {
     }
 }
 
+let endedProcessMessage = document.getElementById('mensajeProcesoFinalizado');
+let inputFinalWaterConcentration = document.getElementById("inputCantidadFinalAgua");
+let inputFinalConcentration = document.getElementById("inputConcentracionFinal");
+let inputError = document.getElementById("inputError");
+
+let finalWaterQuantity = document.getElementById("inputCantidadFinalAgua");
+let finalConcentrationQuantity = document.getElementById("inputConcentracionFinal");
+
+let potConcentrationValue = document.getElementById('valorPotConcentracion');
+let potPerturbationValue = document.getElementById('valorPotPerturbacion');
+let initialWaterQuantity = document.getElementById("cantInicialAgua");
+let initialCoagulantQuantity = document.getElementById("cantCoagulante");
+
+// Inicializar variables y parámetros
+let desiredConcentration =  parseInt(potConcentrationValue?.textContent || '50', 10);
+let perturbation = parseInt(potPerturbationValue?.textContent || '2000', 10);
+let waterQuantity = parseInt(initialWaterQuantity.value);
+let coagulantQuantity = parseInt(initialCoagulantQuantity.value);
+let actualConcentration = 0;
+let decimalsPrecision = 0.1
+
 // Simulación del sistema
 async function initSimulation() {
-    cleanScreen();
-
-    // Inicializar variables y parámetros
-    let concentracionDeseada = parseInt(document.getElementById('valorPotConcentracion')?.textContent || '50', 10);
-    let perturbacion = parseInt(document.getElementById('valorPotPerturbacion')?.textContent || '2000', 10);
-    let cantidadAgua = parseInt(document.getElementById("cantInicialAgua").value);
-    let cantidadCoagulante = parseInt(document.getElementById("cantCoagulante").value);
-    let precisionDecimales = 0.1
-    let concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
+    clearScreen();
 
     // Parámetros PID para el agua
     let Kp = 0.2, Ki = 0.02, Kd = 0.0005;
     let pidAgua = new PIDController(Kp, Kd, Ki);
+    let error = 0;
+
+    actualConcentration = calculateConcentration(coagulantQuantity, waterQuantity);
 
     while (true) {
-        if (Math.abs(concentracionActual - concentracionDeseada) <= precisionDecimales){
-            graphicData.push({concentration: concentracionActual, water: cantidadAgua});
-            document.getElementById('mensajeProcesoFinalizado').style.display = 'inline-block';
-            document.getElementById("inputCantidadFinalAgua").setAttribute("value", cantidadAgua.toString()+" L");
-            document.getElementById("inputConcentracionFinal").setAttribute("value",concentracionActual.toString()+" g/L");
-            document.getElementById("inputError").setAttribute("value", (((concentracionDeseada-concentracionActual)*100)/concentracionDeseada).toString());
+        error = Math.abs(actualConcentration - desiredConcentration)
+        if (error <= decimalsPrecision){
+            graphicData.push({concentration: actualConcentration, water: waterQuantity});
+            console.log(graphicData[graphicData.length - 1]);
+            endedProcessMessage.style.display = 'flex';
+            inputFinalWaterConcentration.setAttribute("value", waterQuantity.toFixed(4)+" L");
+            inputFinalConcentration.setAttribute("value",actualConcentration.toFixed(4)+" g/L");
+            inputError.setAttribute("value", (100 * error/desiredConcentration).toFixed(4)+" %");
             break;
         }
 
         console.log("\n================");
-        console.log(`Concentracion deseada: ${concentracionDeseada};`);
-        console.log(`Perturbacion: ${perturbacion};`);
-        //console.log(`Antes del ajuste -> \n\t Cantidad de agua: ${cantidadAgua}; \n\t Concentracion coagulante actual: ${concentracionActual} \n`);
+        console.log(`Concentracion deseada: ${desiredConcentration};`);
+        console.log(`Perturbacion: ${perturbation};`);
 
         // Calculo del ajuste de agua
-        let ajusteAgua = truncarATresDecimales(pidAgua.calculate(concentracionDeseada, concentracionActual));
-        //console.log(`Ajuste del agua calculado: ${ajusteAgua}\n`);
-        cantidadAgua -= ajusteAgua;
+        let waterAdjust = truncateToThreeDecimals(pidAgua.calculate(desiredConcentration, actualConcentration));
+        waterQuantity -= waterAdjust;
 
         // Calculo de la concentracion de coagulante
-        concentracionActual = calcularConcentracion(cantidadCoagulante, cantidadAgua);
+        actualConcentration = calculateConcentration(coagulantQuantity, waterQuantity);
 
-        //console.log(`Luego del ajuste -> \n\t Nueva concentracion de coagulante: ${concentracionActual}; \n\t Nueva cantidad de agua: ${cantidadAgua} \n`);
         console.log(graphicData[graphicData.length - 1]);
         console.log("================\n");
 
-        graphicData.push({concentration: concentracionActual, water: cantidadAgua});
-        reDrawCAndQGraphic(concentracionDeseada);
+        graphicData.push({concentration: actualConcentration, water: waterQuantity});
+        reDrawCAndQGraphic(desiredConcentration);
 
         await delay(1500);
     }
@@ -75,19 +90,19 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function truncarATresDecimales(num) {
+function truncateToThreeDecimals(num) {
     return Math.trunc(num * 1000) / 1000;
 }
 
-function calcularConcentracion(cantCoagulante, cantAgua) {
-    return truncarATresDecimales((cantCoagulante * 100) / (cantAgua + cantCoagulante));
+function calculateConcentration(coagulantQuantity, waterQuantity) {
+    return truncateToThreeDecimals((coagulantQuantity * 100) / (waterQuantity + coagulantQuantity));
 }
 
-function cleanScreen(){
-    document.getElementById("inputCantidadFinalAgua").setAttribute("value", "0 L");
-    document.getElementById("inputConcentracionFinal").setAttribute("value","0 g/L");
-    document.getElementById("inputError").setAttribute("value", "0 %");
-    document.getElementById('mensajeProcesoFinalizado').style.display = 'none';
+function clearScreen(){
+    finalWaterQuantity.setAttribute("value", "0 L");
+    finalConcentrationQuantity.setAttribute("value","0 g/L");
+    inputError.setAttribute("value", "0 %");
+    endedProcessMessage.style.display = 'none';
 }
 
 // Add this script to handle play and pause functionality
