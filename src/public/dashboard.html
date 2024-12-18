@@ -63,23 +63,68 @@
                 <!-- Grafico de cantidad de agua vs concentracion -->
                 <div class="row">
                     <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
-                        <!-- Right column content -->
+                        <!-- Titulo y botones de simulacion 1 -->
+                        <div class="row justify-content-between" style="margin-inline-start: 2px;">
+                            <div class="column">
+                                <h3>Gráfico de concentracion en funcion del tiempo</h3>
+                            </div>
+                            <div class="column">
+                                <div class="control-buttons">
+                                    <button id="playButton1" class="btn btn-success">
+                                        <i class="fas fa-play"></i> Simular
+                                    </button>
+                                    <button id="stopButton1" class="btn btn-danger">
+                                        <i class="fas fa-stop"></i> Detener Simulacion
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grafico de concentracion en funcion del tiempo -->
+                        <div id="graficoAjusteConcentracion" class="row" style="margin-inline-start: 2px;"></div>
+
+                        <!-- Estado de parametros finales -->
+                        <div class="row" style="margin-inline-start: 2px;">
+                            <!-- Cantidad final de agua -->
+                            <div class="resultInputs">
+                                <label for="inputCantidadFinalAgua1">Cantidad final de agua:</label>
+                                <input class="resultInputs" type="text" id="inputCantidadFinalAgua1" name="inputCantidadFinalAgua" readonly>
+                            </div>
+
+                            <!-- Concentracion alcanzada -->
+                            <div class="resultInputs">
+                                <label for="inputConcentracionFinal1">Concentracion final de coagulante:</label>
+                                <input class="resultInputs"  type="text" id="inputConcentracionFinal1" name="inputConcentracionFinal" readonly>
+                            </div>
+
+                            <!-- Error -->
+                            <div class="resultInputs">
+                                <label for="inputError1">Error obtenido:</label>
+                                <input class="resultInputs" type="text" id="inputError1" name="inputError" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Titulo y botones de simulacion 2 -->
                         <div class="row justify-content-between" style="margin-inline-start: 2px;">
                             <div class="column">
                                 <h3>Gráfico de cantidad de agua vs concentración</h3>
                             </div>
                             <div class="column">
                                 <div class="control-buttons">
-                                    <button id="playButton" class="btn btn-success">
+                                    <button id="playButton2" class="btn btn-success">
                                         <i class="fas fa-play"></i> Simular
                                     </button>
-                                    <button id="stopButton" class="btn btn-danger">
+                                    <button id="stopButton2" class="btn btn-danger">
                                         <i class="fas fa-stop"></i> Detener Simulacion
                                     </button>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Grafico de cantidad y concentracion -->
                         <div id="graficoCantidadVsConcentracion" class="row" style="margin-inline-start: 2px;"></div>
+
+                        <!-- Estado de parametros finales -->
                         <div class="row" style="margin-inline-start: 2px;">
                             <!-- Cantidad final de agua -->
                             <div class="resultInputs">
@@ -102,22 +147,13 @@
                     </div>
                 </div>
 
-                <!-- Grafico de la perturbacion a lo largo del tiempo -->
-                <div class="row">
-                    <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
-                        <div class="row" style="margin-inline-start: 2px;">
-                            <h3>Gráfico de la perturbación a lo largo del tiempo (dominio s)</h3>
-                            <div id="graficoPerturbacionVsTiempo" style="width: 100%; height: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="scripts/concentrationPot.js"></script>
     <script src="scripts/concentrationAndQuantityGraph.js"></script>
+    <script src="scripts/coagulantAdjustGraph.js"></script>
     <script src="simulator/simulation.js"></script>
 </body>
 

@@ -105,14 +105,14 @@ function clearScreen() {
 }
 
 // Add this script to handle play and pause functionality
-document.getElementById('playButton').addEventListener('click', () => {
+document.getElementById('playButton2').addEventListener('click', () => {
     desiredConcentration = parseInt(potConcentrationValue?.textContent)
     waterQuantity = parseInt(initialWaterQuantity.value);
     initSimulation().then(_ => {
     });
 });
 
-document.getElementById('stopButton').addEventListener('click', () => {
+document.getElementById('stopButton2').addEventListener('click', () => {
     window.location.reload();
 });
 
