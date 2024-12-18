@@ -12,7 +12,7 @@ const cAndQGraphicSvg = d3.select('#graficoCantidadVsConcentracion')
     .attr('transform', `translate(${cAndQMargin.left},${cAndQMargin.top})`);
 
 const x = d3.scaleLinear()
-    .domain([0, 1000]) // Cantidad de agua de 0 a 100 litros
+    .domain([0, 1500]) // Cantidad de agua de 0 a 100 litros
     .range([0, cAndQWidth]);
 
 const y = d3.scaleLinear()
@@ -78,8 +78,11 @@ function reDrawCAndQGraphic(desiredConcentration) {
     .attr('stroke-dasharray', '5,5');
 
     // Selecciona y actualiza la línea
-    cAndQGraphicSvg.selectAll('path')
+    cAndQGraphicSvg.append('path')
         .datum(graphicData)
+        .attr('fill', 'none')
+        .attr('stroke', 'blue')
+        .attr('stroke-width', 2)
         .attr('d', cAndQLine);
 
     // Selecciona y actualiza los círculos

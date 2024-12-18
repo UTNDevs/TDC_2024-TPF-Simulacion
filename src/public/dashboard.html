@@ -34,7 +34,7 @@
                             <label class="card-text" for="cantCoagulante">Cantidad de coagulante (miligramos):</label>
                             <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="300" readonly>
                             <label class="card-text" for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
-                            <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="1000" readonly>
+                            <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="0" placeholder="max:1000L">
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                     <!-- Parametro de entrada -->
                     <h3>Parámetro de perturbación</h3>
                     <div id="potPerturbacion"></div>
-                    <p>Pertubación: <span id="valorPotPerturbacion">1000</span> gramo/Litro</p>
+                    <p>Pertubación: <span id="valorPotPerturbacion">25</span> gramo/Litro</p>
                     <button id="botonPerturbacion" class="btn btn-danger">
                         Simular perturbacion
                     </button>
@@ -60,16 +60,6 @@
                     </div>
             </div>
             <div class="col-9 container-fluid" style="background-color: lightblue;">
-                <!-- Grafico de concentracion en funcion del tiempo en el tanque -->
-                <div class="row">
-                    <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
-                        <div class="row" style="margin-inline-start: 2px;">
-                            <h3>Gráfico de concentracion de coagulante en el tanque en funcion del tiempo</h3>
-                            <div id="graficoConcentracionEnFuncionDelTiempo" style="width: 100%; height: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Grafico de cantidad de agua vs concentracion -->
                 <div class="row">
                     <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
