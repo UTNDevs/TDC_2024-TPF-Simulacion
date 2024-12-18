@@ -107,7 +107,7 @@ function clearScreen(){
 
 // Add this script to handle play and pause functionality
 document.getElementById('playButton').addEventListener('click', () => {
-    initSimulation().then(r => {});
+    initSimulation().then(_ => {});
 });
 
 document.getElementById('stopButton').addEventListener('click', () => {
