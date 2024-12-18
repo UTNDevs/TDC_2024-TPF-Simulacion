@@ -112,10 +112,13 @@ document.getElementById('playButton').addEventListener('click', () => {
     });
 });
 
+document.getElementById('playPerturbacion').addEventListener('click', () => {
+    desiredConcentration = parseInt(potPerturbationValue?.textContent)
+    waterQuantity = parseInt(initialWaterQuantity.value);
+    initSimulation().then(_ => {
+    });
+});
+
 document.getElementById('stopButton').addEventListener('click', () => {
     window.location.reload();
 });
-
-document.getElementById('botonPerturbacion').addEventListener('click', () => {
-    perturbation = parseInt(potPerturbationValue?.textContent || '50', 10);
-})
