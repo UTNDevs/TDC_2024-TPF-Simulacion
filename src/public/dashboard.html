@@ -27,37 +27,44 @@
         </div>
         <div class="row">
             <div class="col-3" style="background-color: white;">
-                    <!-- Condiciones inciales del sistema -->
+                <!-- Condiciones inciales del sistema -->
+                <div class="row" style="margin-inline-start: 2px; margin-inline-end: 2px;">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Condiciones iniciales del sistema</h5>
                             <label class="card-text" for="cantCoagulante">Cantidad de coagulante (miligramos):</label>
                             <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="300" readonly>
-                            <label class="card-text" for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
-                            <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="0" placeholder="max:1000L">
+                            <label class="card-text" for="cantInicialAgua">Cantidad de agua en el tanque
+                                (Litros):</label>
+                            <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="0"
+                                placeholder="max:1000L">
                         </div>
                     </div>
+                </div>
 
-                    <!-- Espaciador -->
-                    <div class="row" style="height: 5%;"></div>
-
-                    <!-- Parametro de entrada -->
+                <!-- Parametro de entrada -->
+                <div class="row" style="margin-inline-start: 2px; margin-inline-end: 2px; margin-top: 2px;">
                     <h3>Parámetro de entrada</h3>
                     <div id="potConcentracion"></div>
                     <p>Concentración deseada: <span id="valorPotConcentracion">50</span> gramo/Litro</p>
-
-                    <!-- Parametro de entrada -->
+                </div>
+                <!-- Parametro de entrada -->
+                <div class="row" style="margin-inline-start: 2px; margin-inline-end: 2px;">
                     <h3>Parámetro de perturbación</h3>
                     <div id="potPerturbacion"></div>
                     <p>Pertubación: <span id="valorPotPerturbacion">25</span> gramo/Litro</p>
-                    <button id="botonPerturbacion" class="btn btn-danger">
-                        Simular perturbacion
+                    <button id="playPerturbacion" class="btn btn-danger">
+                        <i class="fas fa-play"></i> Simular perturbacion
                     </button>
+                </div>
 
-                    <!-- Status del proceso -->
-                    <div id="mensajeProcesoFinalizado" style="display: none; color: green; font-weight: bold; margin-top: 3%">
+                <!-- Status del proceso -->
+                <div class="row" style="margin-inline-start: 2px; margin-inline-end: 2px;">
+                    <div id="mensajeProcesoFinalizado"
+                        style="display: none; color: green; font-weight: bold; margin-top: 3%">
                         Proceso finalizado
                     </div>
+                </div>
             </div>
             <div class="col-9 container-fluid" style="background-color: lightblue;">
                 <!-- Grafico de cantidad de agua vs concentracion -->
@@ -82,21 +89,29 @@
                         <div id="graficoCantidadVsConcentracion" class="row" style="margin-inline-start: 2px;"></div>
                         <div class="row" style="margin-inline-start: 2px;">
                             <!-- Cantidad final de agua -->
-                            <div class="resultInputs">
-                                <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
-                                <input class="resultInputs" type="text" id="inputCantidadFinalAgua" name="inputCantidadFinalAgua" readonly>
+                            <div class="col-4 ">
+                                <div class="resultInputs">
+                                    <label for="inputCantidadFinalAgua">Cantidad final de agua:</label>
+                                    <input class="resultInputs" type="text" id="inputCantidadFinalAgua"
+                                        name="inputCantidadFinalAgua" readonly>
+                                </div>
                             </div>
 
                             <!-- Concentracion alcanzada -->
-                            <div class="resultInputs">
-                                <label for="inputConcentracionFinal">Concentracion final de coagulante:</label>
-                                <input class="resultInputs"  type="text" id="inputConcentracionFinal" name="inputConcentracionFinal" readonly>
+                            <div class="col-4">
+                                <div class="resultInputs">
+                                    <label for="inputConcentracionFinal">Concentracion final de coagulante:</label>
+                                    <input class="resultInputs" type="text" id="inputConcentracionFinal"
+                                        name="inputConcentracionFinal" readonly>
+                                </div>
                             </div>
 
                             <!-- Error -->
-                            <div class="resultInputs">
-                                <label for="inputError">Error obtenido:</label>
-                                <input class="resultInputs" type="text" id="inputError" name="inputError" readonly>
+                            <div class="col-4">
+                                <div class="resultInputs">
+                                    <label for="inputError">Error obtenido:</label>
+                                    <input class="resultInputs" type="text" id="inputError" name="inputError" readonly>
+                                </div>
                             </div>
                         </div>
                     </div>
