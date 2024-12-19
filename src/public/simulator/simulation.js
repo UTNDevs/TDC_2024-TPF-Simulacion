@@ -100,7 +100,7 @@ function calculateConcentration(coagulantQuantity, waterQuantity) {
 
 function clearScreen() {
     finalWaterQuantity.setAttribute("value", "0 L");
-    finalConcentrationQuantity.setAttribute("value", "0 g/L");
+    finalConcentrationQuantity.setAttribute("value", "0 mg/L");
     inputError.setAttribute("value", "0 %");
     endedProcessMessage.style.display = 'none';
 }
