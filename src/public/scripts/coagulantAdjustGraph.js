@@ -75,12 +75,13 @@ function reDrawConcentrationOverTimeGraph() {
     const circles = cGraphSvg.selectAll('circle')
         .data(coagulantAdjustGraphicData);
 
+    // TODO: Arreglar (el grafico no se ajusta a la escala)
     circles.enter()
         .append('circle')
         .attr('r', 5)
         .attr('fill', 'red')
         .merge(circles)
-        .attr('cy', d=> y(d.concentration*d.i))//d => y(d.concentration*1000))
+        .attr('cy', d => y(d.concentration))
         .attr('cx', d => x(d.i));
 
     circles.exit().remove();
