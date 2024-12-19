@@ -21,6 +21,13 @@ class PIDController {
     }
 }
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let coagulantConcentration = 0; // Concentración inicial de coagulante en gramos/Litro
+let desiredConcentrationValue = document.getElementById('desiredConcentrationValue');
+
 let endedProcessMessage = document.getElementById('mensajeProcesoFinalizado');
 let inputFinalWaterConcentration = document.getElementById("inputCantidadFinalAgua");
 let inputFinalConcentration = document.getElementById("inputConcentracionFinal");
@@ -29,13 +36,12 @@ let inputError = document.getElementById("inputError");
 let finalWaterQuantity = document.getElementById("inputCantidadFinalAgua");
 let finalConcentrationQuantity = document.getElementById("inputConcentracionFinal");
 
-let potConcentrationValue = document.getElementById('valorPotConcentracion');
 let potPerturbationValue = document.getElementById('valorPotPerturbacion');
 let initialWaterQuantity = document.getElementById("cantInicialAgua");
 let initialCoagulantQuantity = document.getElementById("cantCoagulante");
 
 // Inicializar variables y parámetros
-let desiredConcentration = parseInt(potConcentrationValue?.textContent, 10);
+let desiredConcentration = parseInt(desiredConcentrationValue?.textContent, 10);
 let perturbation = 0;
 let waterQuantity = 0;
 let coagulantQuantity = parseInt(initialCoagulantQuantity.value);
@@ -85,8 +91,31 @@ async function initSimulation() {
     }
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+// Simulacion de la concentracion a lo largo del tiempo en el sistema
+async function initConcentrationSimulation() {
+    const pid = new PIDController(5, 0.1, 0.01); // Ajusta los parámetros del PID según sea necesario
+    let i = 0;
+    let tankVolume = 1000;
+
+    while (true) {
+        let coagulantAmount = pid.calculate(desiredConcentration, coagulantConcentration);
+        coagulantConcentration += coagulantAmount / tankVolume;
+
+        console.log(`Concentración de coagulante: ${coagulantConcentration.toFixed(2)} g/L`);
+
+        // Verifica si se ha alcanzado el setpoint
+        if (Math.abs(desiredConcentration - coagulantConcentration) < 0.01) {
+            coagulantAdjustGraphicData.push({concentration: coagulantConcentration.toFixed(2), i: i});
+            console.log("Concentración de coagulante alcanzada: " + coagulantConcentration);
+            break;
+        }
+
+        coagulantAdjustGraphicData.push({concentration: actualConcentration, i: i});
+        reDrawConcentrationOverTimeGraph();
+        i++;
+
+        await delay(1500);
+    }
 }
 
 function truncateToThreeDecimals(num) {
@@ -106,7 +135,7 @@ function clearScreen() {
 
 // Add this script to handle play and pause functionality
 document.getElementById('playButton2').addEventListener('click', () => {
-    desiredConcentration = parseInt(potConcentrationValue?.textContent)
+    desiredConcentration = parseInt(desiredConcentrationValue?.textContent)
     waterQuantity = parseInt(initialWaterQuantity.value);
     initSimulation().then(_ => {
     });
@@ -118,4 +147,14 @@ document.getElementById('stopButton2').addEventListener('click', () => {
 
 document.getElementById('botonPerturbacion').addEventListener('click', () => {
     perturbation = parseInt(potPerturbationValue?.textContent || '50', 10);
+})
+
+// Ejemplo de uso: Controlar la concentración de coagulante a 5 gramos/Litro
+document.getElementById('concentrationSimulationPlayButton').addEventListener('click', () => {
+    initConcentrationSimulation().then(_ => {
+    });
+});
+
+document.getElementById('concentrationSimulationStopButton').addEventListener('click',()=>{
+    window.location.reload();
 })

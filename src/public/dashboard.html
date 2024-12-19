@@ -44,7 +44,7 @@
                     <!-- Parametro de entrada -->
                     <h3>Parámetro de entrada</h3>
                     <div id="potConcentracion"></div>
-                    <p>Concentración deseada: <span id="valorPotConcentracion">50</span> gramo/Litro</p>
+                    <p>Concentración deseada: <span id="desiredConcentrationValue">50</span> gramo/Litro</p>
 
                     <!-- Parametro de entrada -->
                     <h3>Parámetro de perturbación</h3>
@@ -63,17 +63,17 @@
                 <!-- Grafico de cantidad de agua vs concentracion -->
                 <div class="row">
                     <div class="container-fluid" style="margin-top: 2%; margin-right: 2%;">
-                        <!-- Titulo y botones de simulacion 1 -->
+                        <!-- Titulo y botones de simulacion de concentracion -->
                         <div class="row justify-content-between" style="margin-inline-start: 2px;">
                             <div class="column">
                                 <h3>Gráfico de concentracion en funcion del tiempo</h3>
                             </div>
                             <div class="column">
                                 <div class="control-buttons">
-                                    <button id="playButton1" class="btn btn-success">
+                                    <button id="concentrationSimulationPlayButton" class="btn btn-success">
                                         <i class="fas fa-play"></i> Simular
                                     </button>
-                                    <button id="stopButton1" class="btn btn-danger">
+                                    <button id="concentrationSimulationStopButton" class="btn btn-danger">
                                         <i class="fas fa-stop"></i> Detener Simulacion
                                     </button>
                                 </div>
@@ -154,7 +154,7 @@
     <script src="scripts/concentrationPot.js"></script>
     <script src="scripts/concentrationAndQuantityGraph.js"></script>
     <script src="scripts/coagulantAdjustGraph.js"></script>
-    <script src="simulator/simulation.js"></script>
+    <script src="simulator/simulation.mjs"></script>
 </body>
 
 </html>
