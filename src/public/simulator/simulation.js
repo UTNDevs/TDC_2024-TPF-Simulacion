@@ -36,7 +36,8 @@ let initialCoagulantQuantity = document.getElementById("cantCoagulante");
 
 // Inicializar variables y parámetros
 let desiredConcentration = parseInt(potConcentrationValue?.textContent, 10);
-let perturbation = 0;
+let coagulantPerturbation = 0;
+let waterPerturbation = 0;
 let waterQuantity = 0;
 let coagulantQuantity = parseInt(initialCoagulantQuantity.value);
 let actualConcentration = 0;
@@ -54,7 +55,7 @@ async function initSimulation() {
     while (true) {
         // Calculo de la concentracion de coagulante
         actualConcentration = calculateConcentration(coagulantQuantity, waterQuantity);
-        actualConcentration += perturbation;
+        actualConcentration += coagulantPerturbation;
 
         error = Math.abs(actualConcentration - desiredConcentration)
         if (error <= decimalsPrecision) {
@@ -69,7 +70,7 @@ async function initSimulation() {
 
         console.log("\n================");
         console.log(`Concentracion deseada: ${desiredConcentration};`);
-        console.log(`Perturbacion: ${perturbation};`);
+        console.log(`Perturbacion: ${coagulantPerturbation};`);
 
         // Calculo del ajuste de agua
         let waterAdjust = truncateToThreeDecimals(pidAgua.calculate(desiredConcentration, actualConcentration));
@@ -117,5 +118,5 @@ document.getElementById('stopButton').addEventListener('click', () => {
 });
 
 document.getElementById('botonPerturbacion').addEventListener('click', () => {
-    perturbation = parseInt(potPerturbationValue?.textContent || '50', 10);
+    coagulantPerturbation = parseInt(potPerturbationValue?.textContent || '50', 10);
 })

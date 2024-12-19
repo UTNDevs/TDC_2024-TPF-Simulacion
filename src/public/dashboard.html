@@ -46,15 +46,28 @@
                     <div id="potConcentracion"></div>
                     <p>Concentración deseada: <span id="valorPotConcentracion">50</span> gramo/Litro</p>
 
-                    <!-- Parametro de entrada -->
-                    <h3>Parámetro de perturbación</h3>
-                    <div id="potPerturbacion"></div>
-                    <p>Pertubación: <span id="valorPotPerturbacion">25</span> gramo/Litro</p>
-                    <button id="botonPerturbacion" class="btn btn-danger">
+                <div style="height: 20px;">
+                    <hr>
+                </div> <!-- Espaciador -->
+
+                <!-- Perturbaciones -->
+                <h3>Perturbaciones</h3>
+
+                <div style="height: 20px;"></div> <!-- Espaciador -->
+
+                <h5>Perturbacion de coagulante: </h5>
+                <div id="potPerturbacionCoagulante"></div>
+                <p>Pertubación: <span id="valorPotPerturbacionCoagulante">25</span> gramo/Litro</p>
+
+                <h5>Perturbacion de agua: </h5>
+                <div id="potPerturbacionAgua"></div>
+                <p>Pertubación: <span id="valorPotPerturbacionAgua">0</span> Litros </p>
+
+                <button class="btn btn-danger" id="botonPerturbacion">
                         Simular perturbacion
                     </button>
 
-                    <!-- Status del proceso -->
+                <!-- Status del proceso -->
                     <div id="mensajeProcesoFinalizado" style="display: none; color: green; font-weight: bold; margin-top: 3%">
                         Proceso finalizado
                     </div>
