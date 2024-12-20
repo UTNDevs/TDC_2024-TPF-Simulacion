@@ -21,7 +21,7 @@ class PIDController {
     }
 }
 
-let endedProcessMessage = document.getElementById('mensajeProcesoFinalizado');
+let endedProcessMessage = document.getElementById('mensajeEstadoEstacionarioAlcanzado');
 let inputFinalWaterConcentration = document.getElementById("inputCantidadFinalAgua");
 let inputFinalConcentration = document.getElementById("inputConcentracionFinal");
 let inputError = document.getElementById("inputError");
@@ -70,11 +70,10 @@ async function initSimulation() {
         if (error < decimalsPrecision) {
             graphicData.push({concentration: actualConcentration, water: waterQuantity});
             console.log(graphicData[graphicData.length - 1]);
-            endedProcessMessage.style.display = 'flex';
+            enableStatusMessage();
             inputFinalWaterConcentration.setAttribute("value", waterQuantity.toFixed(4) + " L");
             inputFinalConcentration.setAttribute("value", actualConcentration.toFixed(4) + " g/L");
             inputError.setAttribute("value", (100 * error / desiredConcentration).toFixed(4));
-            break;
         }
 
         console.log("\n================");
@@ -111,6 +110,14 @@ function clearScreen() {
     finalWaterQuantity.setAttribute("value", "0 L");
     finalConcentrationQuantity.setAttribute("value", "0 g/L");
     inputError.setAttribute("value", "0");
+    disableStatusMessage();
+}
+
+function enableStatusMessage() {
+    endedProcessMessage.style.display = 'flex';
+}
+
+function disableStatusMessage() {
     endedProcessMessage.style.display = 'none';
 }
 
@@ -127,6 +134,7 @@ document.getElementById('stopButton').addEventListener('click', () => {
 });
 
 document.getElementById('botonPerturbacion').addEventListener('click', () => {
+    clearScreen();
     coagulantPerturbation = parseInt(potPerturbationValue?.textContent, 10);
     waterPerturbation = parseInt(potWaterPerturbationValue?.textContent, 10);
 })
