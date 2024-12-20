@@ -1,4 +1,4 @@
-function createPotentiometer(svgSelector, valueSelector, width, height, valueMax) {
+function createPotentiometer(svgSelector, valueSelector, width, height, valueMin, valueMax) {
     const svg = d3.select(svgSelector)
         .append('svg')
         .attr('width', width)
@@ -27,7 +27,7 @@ function createPotentiometer(svgSelector, valueSelector, width, height, valueMax
             .on('drag', function (event) {
                 let x = Math.max(0, Math.min(width - 20, event.x));
                 handle.attr('cx', x);
-                let value = Math.round((x / (width - 20)) * valueMax);
+                let value = valueMin + Math.round((x / (width - 20)) * (valueMax - valueMin));
                 d3.select(valueSelector).text(value);
             })
         );
@@ -35,5 +35,5 @@ function createPotentiometer(svgSelector, valueSelector, width, height, valueMax
 
 // Crear potenciometros para diferentes selectores
 createPotentiometer('#potConcentracion', '#valorPotConcentracion', 200, 50, 100);
-createPotentiometer('#potPerturbacionCoagulante', '#valorPotPerturbacionCoagulante', 200, 50, 100);
-createPotentiometer('#potPerturbacionAgua', '#valorPotPerturbacionAgua', 200, 50, 100);
+createPotentiometer('#potPerturbacionCoagulante', '#valorPotPerturbacionCoagulante', 200, 50, 0,50);
+createPotentiometer('#potPerturbacionAgua', '#valorPotPerturbacionAgua', 200, 50, -50,50);

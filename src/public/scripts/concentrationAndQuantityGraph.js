@@ -12,7 +12,7 @@ const cAndQGraphicSvg = d3.select('#graficoCantidadVsConcentracion')
     .attr('transform', `translate(${cAndQMargin.left},${cAndQMargin.top})`);
 
 const x = d3.scaleLinear()
-    .domain([0, 1500]) // Cantidad de agua de 0 a 100 litros
+    .domain([0, 2000]) // Cantidad de agua de 0 a 100 litros
     .range([0, cAndQWidth]);
 
 const y = d3.scaleLinear()

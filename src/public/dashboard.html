@@ -31,8 +31,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Condiciones iniciales del sistema</h5>
-                            <label class="card-text" for="cantCoagulante">Cantidad de coagulante (miligramos):</label>
-                            <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="300" readonly>
+                            <label class="card-text" for="cantCoagulante">Cantidad de coagulante (gramos):</label>
+                            <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="500" readonly>
                             <label class="card-text" for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
                             <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="0" placeholder="max:1000L">
                         </div>
@@ -51,21 +51,23 @@
                 </div> <!-- Espaciador -->
 
                 <!-- Perturbaciones -->
-                <h3>Perturbaciones</h3>
+                <div class="card" style="padding: 2%; background-color: gainsboro">
+                    <h3>Perturbaciones</h3>
 
-                <div style="height: 20px;"></div> <!-- Espaciador -->
+                    <div style="height: 20px;"></div> <!-- Espaciador -->
 
-                <h5>Perturbacion de coagulante: </h5>
-                <div id="potPerturbacionCoagulante"></div>
-                <p>Pertubación: <span id="valorPotPerturbacionCoagulante">25</span> gramo/Litro</p>
+                    <h5>Perturbacion de coagulante: </h5>
+                    <div id="potPerturbacionCoagulante"></div>
+                    <p>Pertubación: <span id="valorPotPerturbacionCoagulante">25</span> gramo/Litro</p>
 
-                <h5>Perturbacion de agua: </h5>
-                <div id="potPerturbacionAgua"></div>
-                <p>Pertubación: <span id="valorPotPerturbacionAgua">0</span> Litros </p>
+                    <h5>Perturbacion de agua: </h5>
+                    <div id="potPerturbacionAgua"></div>
+                    <p>Pertubación: <span id="valorPotPerturbacionAgua">0</span> Litros </p>
 
-                <button class="btn btn-danger" id="botonPerturbacion">
-                        Simular perturbacion
+                    <button class="btn btn-danger" id="botonPerturbacion">
+                            Simular perturbacion
                     </button>
+                </div>
 
                 <!-- Status del proceso -->
                     <div id="mensajeProcesoFinalizado" style="display: none; color: green; font-weight: bold; margin-top: 3%">

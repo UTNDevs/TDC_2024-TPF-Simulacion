@@ -41,15 +41,15 @@ let waterPerturbation = 0;
 let waterQuantity = 0;
 let coagulantQuantity = parseInt(initialCoagulantQuantity.value);
 let actualConcentration = 0;
-let decimalsPrecision = 0.1
+let decimalsPrecision = 0.01
 
 // Simulación del sistema
 async function initSimulation() {
     clearScreen();
 
     // Parámetros PID para el agua
-    let Kp = 2, Ki = 0.02, Kd = 0.0005;
-    let pidAgua = new PIDController(Kp, Kd, Ki);
+    let Kp = 2, Ki = 0.02, Kd = 0.0005; // TODO: De donde vienen estos valores?
+    let waterPID = new PIDController(Kp, Kd, Ki);
     let error = 0;
 
     while (true) {
@@ -58,13 +58,13 @@ async function initSimulation() {
         actualConcentration += coagulantPerturbation;
 
         error = Math.abs(actualConcentration - desiredConcentration)
-        if (error <= decimalsPrecision) {
+        if (error < decimalsPrecision) {
             graphicData.push({concentration: actualConcentration, water: waterQuantity});
             console.log(graphicData[graphicData.length - 1]);
             endedProcessMessage.style.display = 'flex';
             inputFinalWaterConcentration.setAttribute("value", waterQuantity.toFixed(4) + " L");
             inputFinalConcentration.setAttribute("value", actualConcentration.toFixed(4) + " g/L");
-            inputError.setAttribute("value", (100 * error / desiredConcentration).toFixed(4) + " %");
+            inputError.setAttribute("value", (100 * error / desiredConcentration).toFixed(4));
             break;
         }
 
@@ -73,7 +73,7 @@ async function initSimulation() {
         console.log(`Perturbacion: ${coagulantPerturbation};`);
 
         // Calculo del ajuste de agua
-        let waterAdjust = truncateToThreeDecimals(pidAgua.calculate(desiredConcentration, actualConcentration));
+        let waterAdjust = truncateToThreeDecimals(waterPID.calculate(desiredConcentration, actualConcentration));
         waterQuantity -= waterAdjust;
 
         console.log(graphicData[graphicData.length - 1]);
@@ -95,13 +95,14 @@ function truncateToThreeDecimals(num) {
 }
 
 function calculateConcentration(coagulantQuantity, waterQuantity) {
-    return truncateToThreeDecimals((coagulantQuantity * 100) / (waterQuantity + coagulantQuantity));
+    let concentration = (coagulantQuantity*100) / (waterQuantity + coagulantQuantity);
+    return truncateToThreeDecimals(concentration);
 }
 
 function clearScreen() {
     finalWaterQuantity.setAttribute("value", "0 L");
     finalConcentrationQuantity.setAttribute("value", "0 g/L");
-    inputError.setAttribute("value", "0 %");
+    inputError.setAttribute("value", "0");
     endedProcessMessage.style.display = 'none';
 }
 
