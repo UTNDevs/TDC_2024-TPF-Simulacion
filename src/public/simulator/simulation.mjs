@@ -1,4 +1,4 @@
-import {graphicData} from "../scripts/concentrationAndQuantityGraph.mjs";
+import {drawGraphic, graphicData} from "../scripts/concentrationAndQuantityGraph.mjs";
 
 class PIDController {
     constructor(Kp, Ki, Kd, dt = 1) {
@@ -67,11 +67,15 @@ async function initSimulation() {
         // Resetea las perturbaciones
         waterPerturbation = 0;
         coagulantPerturbation = 0;
+        temporalData = {x: waterQuantity, y: actualConcentration}
 
         error = Math.abs(actualConcentration - desiredConcentration)
         if (error < decimalsPrecision) {
-            graphicData.push({concentration: actualConcentration, water: waterQuantity});
-            console.log(graphicData[graphicData.length - 1]);
+            graphicData.x.push(temporalData.x);
+            graphicData.y.push(temporalData.y);
+
+            console.log("Concentration: " + temporalData.y + "; Water: " + temporalData.x);
+
             enableStatusMessage();
             inputFinalWaterConcentration.setAttribute("value", waterQuantity.toFixed(4) + " L");
             inputFinalConcentration.setAttribute("value", actualConcentration.toFixed(4) + " g/L");
@@ -83,13 +87,12 @@ async function initSimulation() {
         let waterAdjust = truncateToThreeDecimals(waterPID.calculate(desiredConcentration, actualConcentration));
         waterQuantity -= waterAdjust;
 
-        temporalData = {concentration: actualConcentration, water: waterQuantity}
-
-        console.log("Concentration: " + temporalData.concentration + "; Water: " + temporalData.water);
+        console.log("Concentration: " + temporalData.y + "; Water: " + temporalData.x);
         console.log("================\n");
 
-        graphicData.push({concentration: actualConcentration, water: waterQuantity});
-        reDrawCAndQGraphic(desiredConcentration);
+        graphicData.x.push(temporalData.x);
+        graphicData.y.push(temporalData.y);
+        drawGraphic();
 
         await delay(1500);
     }
@@ -140,3 +143,8 @@ document.getElementById('botonPerturbacion').addEventListener('click', () => {
     coagulantPerturbation = parseInt(potPerturbationValue?.textContent, 10);
     waterPerturbation = parseInt(potWaterPerturbationValue?.textContent, 10);
 })
+
+// Ejecutar drawGraphic cuando la página se carga
+document.addEventListener('DOMContentLoaded', () => {
+    drawGraphic();
+});
