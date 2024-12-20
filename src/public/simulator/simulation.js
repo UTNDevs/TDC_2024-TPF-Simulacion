@@ -31,6 +31,7 @@ let finalConcentrationQuantity = document.getElementById("inputConcentracionFina
 
 let potConcentrationValue = document.getElementById('valorPotConcentracion');
 let potPerturbationValue = document.getElementById('valorPotPerturbacion');
+let potWaterPerturbationValue = document.getElementById('valorPotPerturbacionAgua');
 let initialWaterQuantity = document.getElementById("cantInicialAgua");
 let initialCoagulantQuantity = document.getElementById("cantCoagulante");
 
@@ -120,4 +121,5 @@ document.getElementById('stopButton').addEventListener('click', () => {
 
 document.getElementById('botonPerturbacion').addEventListener('click', () => {
     coagulantPerturbation = parseInt(potPerturbationValue?.textContent || '50', 10);
+    waterPerturbation = parseInt(potWaterPerturbationValue?.textContent || '0', 10);
 })
