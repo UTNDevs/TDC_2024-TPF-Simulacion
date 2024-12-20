@@ -31,8 +31,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Condiciones iniciales del sistema</h5>
-                            <label class="card-text" for="cantCoagulante">Cantidad de coagulante (gramos):</label>
-                            <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="500" readonly>
+                            <label class="card-text" for="cantCoagulante">Cantidad de coagulante (kg):</label>
+                            <input type="number" id="cantCoagulante" name="inputCantCoagulante" value="5" readonly>
                             <label class="card-text" for="cantInicialAgua">Cantidad de agua en el tanque (Litros):</label>
                             <input type="number" id="cantInicialAgua" name="inputCantInicialAgua" value="0" placeholder="max:1000L">
                         </div>
@@ -50,6 +50,15 @@
                     <hr>
                 </div> <!-- Espaciador -->
 
+                <!-- Status del proceso -->
+                <div class="alert alert-success" id="mensajeProcesoFinalizado" style="display: none; font-weight: bold;">
+                    Proceso finalizado
+                </div>
+
+                <div style="height: 20px;">
+                    <hr>
+                </div> <!-- Espaciador -->
+
                 <!-- Perturbaciones -->
                 <div class="card" style="padding: 2%; background-color: gainsboro">
                     <h3>Perturbaciones</h3>
@@ -58,7 +67,7 @@
 
                     <h5>Perturbacion de coagulante: </h5>
                     <div id="potPerturbacionCoagulante"></div>
-                    <p>Pertubación: <span id="valorPotPerturbacionCoagulante">25</span> gramo/Litro</p>
+                    <p>Pertubación: <span id="valorPotPerturbacionCoagulante">25</span> gramos </p>
 
                     <h5>Perturbacion de agua: </h5>
                     <div id="potPerturbacionAgua"></div>
@@ -69,10 +78,6 @@
                     </button>
                 </div>
 
-                <!-- Status del proceso -->
-                    <div id="mensajeProcesoFinalizado" style="display: none; color: green; font-weight: bold; margin-top: 3%">
-                        Proceso finalizado
-                    </div>
             </div>
             <div class="col-9 container-fluid" style="background-color: lightblue;">
                 <!-- Grafico de cantidad de agua vs concentracion -->

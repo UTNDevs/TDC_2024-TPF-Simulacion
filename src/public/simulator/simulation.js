@@ -30,7 +30,7 @@ let finalWaterQuantity = document.getElementById("inputCantidadFinalAgua");
 let finalConcentrationQuantity = document.getElementById("inputConcentracionFinal");
 
 let potConcentrationValue = document.getElementById('valorPotConcentracion');
-let potPerturbationValue = document.getElementById('valorPotPerturbacion');
+let potPerturbationValue = document.getElementById('valorPotPerturbacionCoagulante');
 let potWaterPerturbationValue = document.getElementById('valorPotPerturbacionAgua');
 let initialWaterQuantity = document.getElementById("cantInicialAgua");
 let initialCoagulantQuantity = document.getElementById("cantCoagulante");
@@ -59,8 +59,12 @@ async function initSimulation() {
         actualConcentration = calculateConcentration(coagulantQuantity, waterQuantity);
 
         // Se agregan las perturbaciones
-        actualConcentration += coagulantPerturbation;
+        actualConcentration += (coagulantPerturbation);
         waterQuantity += waterPerturbation;
+
+        // Resetea las perturbaciones
+        waterPerturbation = 0;
+        coagulantPerturbation = 0;
 
         error = Math.abs(actualConcentration - desiredConcentration)
         if (error < decimalsPrecision) {
@@ -99,7 +103,7 @@ function truncateToThreeDecimals(num) {
 }
 
 function calculateConcentration(coagulantQuantity, waterQuantity) {
-    let concentration = (coagulantQuantity*100) / (waterQuantity + coagulantQuantity);
+    let concentration = (coagulantQuantity*10000) / (waterQuantity + coagulantQuantity);
     return truncateToThreeDecimals(concentration);
 }
 
@@ -123,6 +127,6 @@ document.getElementById('stopButton').addEventListener('click', () => {
 });
 
 document.getElementById('botonPerturbacion').addEventListener('click', () => {
-    coagulantPerturbation = parseInt(potPerturbationValue?.textContent || '50', 10);
-    waterPerturbation = parseInt(potWaterPerturbationValue?.textContent || '0', 10);
+    coagulantPerturbation = parseInt(potPerturbationValue?.textContent, 10);
+    waterPerturbation = parseInt(potWaterPerturbationValue?.textContent, 10);
 })

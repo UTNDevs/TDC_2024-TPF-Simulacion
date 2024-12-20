@@ -16,7 +16,7 @@ const x = d3.scaleLinear()
     .range([0, cAndQWidth]);
 
 const y = d3.scaleLinear()
-    .domain([0, 100]) // Concentración de 0 a 100%
+    .domain([0, 100]) // Concentración
     .range([cAndQheight, 0]);
 
 const xAxis = d3.axisBottom(x);
@@ -40,7 +40,7 @@ cAndQGraphicSvg.append('g')
     .attr('y', 15)
     .attr('fill', '#000')
     .style('text-anchor', 'end')
-    .text('Concentración (%)');
+    .text('Concentración (g/l)');
 
 const cAndQLine = d3.line()
     .x(d => x(d.water))
