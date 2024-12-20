@@ -1,3 +1,5 @@
+import {graphicData} from "../scripts/concentrationAndQuantityGraph.mjs";
+
 class PIDController {
     constructor(Kp, Ki, Kd, dt = 1) {
         this.Kp = Kp;
