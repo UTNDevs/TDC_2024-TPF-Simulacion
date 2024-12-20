@@ -34,6 +34,6 @@ function createPotentiometer(svgSelector, valueSelector, width, height, valueMin
 }
 
 // Crear potenciometros para diferentes selectores
-createPotentiometer('#potConcentracion', '#valorPotConcentracion', 200, 50, 100);
+createPotentiometer('#potConcentracion', '#valorPotConcentracion', 200, 50, 0, 100);
 createPotentiometer('#potPerturbacionCoagulante', '#valorPotPerturbacionCoagulante', 200, 50, 0,50);
 createPotentiometer('#potPerturbacionAgua', '#valorPotPerturbacionAgua', 200, 50, -50,50);

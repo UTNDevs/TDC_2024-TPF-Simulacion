@@ -52,11 +52,15 @@ async function initSimulation() {
     let Kp = 2, Ki = 0.02, Kd = 0.0005; // TODO: De donde vienen estos valores?
     let waterPID = new PIDController(Kp, Kd, Ki);
     let error = 0;
+    let temporalData = {};
 
     while (true) {
         // Calculo de la concentracion de coagulante
         actualConcentration = calculateConcentration(coagulantQuantity, waterQuantity);
+
+        // Se agregan las perturbaciones
         actualConcentration += coagulantPerturbation;
+        waterQuantity += waterPerturbation;
 
         error = Math.abs(actualConcentration - desiredConcentration)
         if (error < decimalsPrecision) {
@@ -70,14 +74,13 @@ async function initSimulation() {
         }
 
         console.log("\n================");
-        console.log(`Concentracion deseada: ${desiredConcentration};`);
-        console.log(`Perturbacion: ${coagulantPerturbation};`);
-
         // Calculo del ajuste de agua
         let waterAdjust = truncateToThreeDecimals(waterPID.calculate(desiredConcentration, actualConcentration));
         waterQuantity -= waterAdjust;
 
-        console.log(graphicData[graphicData.length - 1]);
+        temporalData = {concentration: actualConcentration, water: waterQuantity}
+
+        console.log("Concentration: " + temporalData.concentration + "; Water: " + temporalData.water);
         console.log("================\n");
 
         graphicData.push({concentration: actualConcentration, water: waterQuantity});
